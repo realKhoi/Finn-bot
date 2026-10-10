@@ -22,8 +22,9 @@ Each new listing shows up as an embed with title, price, location, a thumbnail a
 ## Installation
 
 ```bash
-git clone https://github.com/realKhoi/Finn-bot.git finn-watcher
+mkdir finn-watcher 
 cd finn-watcher
+git clone https://github.com/realKhoi/Finn-bot.git finn-watcher
 pip install -r requirements.txt
 cp config.example.yaml config.yaml
 ```
