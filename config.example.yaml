@@ -1,0 +1,115 @@
+# Configuration for finn_watcher.py
+# Edit freely — the script re-reads this file on every run.
+
+# Discord webhook that notifications get posted to.
+discord_webhook_url: "YOUR_URL"
+
+# Global ceiling in NOK. Also sent to finn.no as the price_to filter, so
+# listings above this never even get downloaded.
+max_price_kr: 4000
+
+# On the very first run there's no history, so every existing listing would
+# look "new" and you'd get flooded with old ads. If true, the first run just
+# records everything currently on finn.no as seen without notifying. Set to
+# true once you've done that first run and want a fresh backfill notified.
+notify_on_first_run: false
+
+# Seconds to sleep between requests to finn.no, to be polite.
+request_delay_seconds: 2
+
+# Only used in --loop mode: how often (seconds) to re-check all searches.
+# Lower = faster notifications but more requests to finn.no.
+poll_interval_seconds: 900
+
+# Where the list of already-notified listing IDs is stored (JSON).
+# Relative paths are resolved relative to this config file's directory.
+state_file: "seen_listings.json"
+
+user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+
+# Each entry is one finn.no "Torget" (bap/forsale) search.
+# - name: shown in the Discord notification and in logs.
+# - query: the search text sent to finn.no (same as typing it in the search box).
+# - include_keywords: if non-empty, a listing's title must contain at least
+#     ONE of these (case-insensitive) to be notified. Leave empty ([]) to
+#     disable this filter and rely on `query` alone.
+# - exclude_keywords: if a listing's title contains ANY of these, it's
+#     skipped. Useful for filtering out full laptops/gaming rigs that only
+#     mention "ssd"/"ram" in passing.
+# - max_price_kr: optional per-search override of the global max_price_kr.
+searches:
+  - name: "Mini-PC / SFF (homelab)"
+    query: "mini pc"
+    include_keywords:
+      - "mini"
+      - "sff"
+      - "micro"
+      - "tiny"
+      - "nuc"
+      - "elitedesk"
+      - "prodesk"
+      - "thinkcentre"
+      - "optiplex"
+      - "mac mini"
+    exclude_keywords:
+      - "laptop"
+      - "bærbar"
+      - "macbook"
+
+  - name: "SSD"
+    query: "ssd"
+    include_keywords:
+      - "ssd"
+      - "nvme"
+      - "m.2"
+    exclude_keywords:
+      - "gaming pc"
+      - "stasjonær pc"
+      - "laptop"
+      - "bærbar"
+      - "macbook"
+      - "imac"
+      - "thinkpad"
+      - "elitebook"
+      - "probook"
+      - "ultrabook"
+
+  - name: "HDD"
+    query: "hdd"
+    include_keywords:
+      - "hdd"
+      - "harddisk"
+      - "sas disk"
+      - "sata disk"
+    exclude_keywords:
+      - "gaming pc"
+      - "stasjonær pc"
+      - "laptop"
+      - "bærbar"
+      - "macbook"
+      - "imac"
+
+  - name: "RAM"
+    query: "ram minne"
+    include_keywords:
+      - "ram"
+      - "ddr3"
+      - "ddr4"
+      - "ddr5"
+      - "minnebrikke"
+      - "minnemodul"
+      - "sodimm"
+      - "dimm"
+    exclude_keywords:
+      - "gaming pc"
+      - "stasjonær pc"
+      - "laptop"
+      - "bærbar"
+      - "macbook"
+      - "imac"
+      - "thinkpad"
+      - "elitebook"
+      - "probook"
+      - "ultrabook"
+
+# To add more searches (e.g. a specific brand), copy one of the blocks above.
