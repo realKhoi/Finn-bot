@@ -67,6 +67,8 @@ searches:
 | `state_file` | no | `seen_listings.json` | Where seen listing IDs are stored |
 | `user_agent` | no | `finn-watcher/1.0` | User-Agent header for requests |
 
+For intervals and delay, KEEP IT REASONABLE, I am not responsible if you get IP banned from Finn.no
+
 Each search supports:
 
 | Key | Required | Description |
@@ -132,3 +134,4 @@ Seen listing IDs are saved to `seen_listings.json`, which is created automatical
 ## Disclaimer
 
 Not affiliated with finn.no. Keep the poll interval reasonable and respect finn.no's terms of use.
+The code is 100% vibecoded using Claude Code, I have only done minor edits to suffice my own requirements.
